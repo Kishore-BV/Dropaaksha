@@ -50,9 +50,7 @@ const navItems: NavItem[] = [
     subtitle: 'Seed Round Open • Partner with Us',
     children: [
       { label: 'Seed Funding Round', href: '#contact-form' },
-      { label: 'Company Credentials', href: '#credentials' },
       { label: 'Growth Roadmap', href: '#roadmap' },
-      { label: 'Download Pitch Deck', href: '#', download: true },
     ],
   },
   {
