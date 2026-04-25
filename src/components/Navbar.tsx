@@ -88,7 +88,7 @@ export default function Navbar() {
   const handleMouseLeave = () => {
     dropdownRef.current = window.setTimeout(() => {
       setActiveDropdown(null);
-    }, 150);
+    }, 300);
   };
 
   // Close dropdown on escape key
@@ -112,12 +112,16 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center space-x-1" onMouseLeave={handleMouseLeave}>
+        <nav className="hidden lg:flex items-center space-x-1">
           {navItems.map((item) => (
-            <div key={item.label} className="relative py-2">
+            <div 
+              key={item.label} 
+              className="relative py-2"
+              onMouseEnter={() => handleMouseEnter(item.label)}
+              onMouseLeave={handleMouseLeave}
+            >
               {item.children ? (
                 <button
-                  onMouseEnter={() => handleMouseEnter(item.label)}
                   className={`px-4 text-[14px] uppercase tracking-[0.08em] font-medium transition-colors ${
                     activeDropdown === item.label ? 'text-brand-white' : 'text-text-dim hover:text-brand-white'
                   }`}
@@ -127,7 +131,6 @@ export default function Navbar() {
               ) : (
                 <a
                   href={item.href}
-                  onMouseEnter={() => handleMouseEnter(item.label)}
                   className="px-4 text-[14px] uppercase tracking-[0.08em] font-medium text-text-dim hover:text-brand-white transition-colors"
                 >
                   {item.label}
@@ -141,10 +144,13 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.18, ease: 'easeOut' }}
-                    className={`absolute top-full left-0 mt-4 bg-brand-white border border-[#E0E0E0] rounded-lg shadow-xl overflow-hidden min-w-[280px] ${
+                    className={`absolute top-full left-0 bg-brand-white border border-[#E0E0E0] rounded-lg shadow-xl overflow-hidden min-w-[280px] ${
                       item.label === 'Investors' ? 'min-w-[320px]' : ''
                     }`}
                   >
+                    {/* Invisible Bridge to prevent hover gap */}
+                    <div className="absolute -top-4 left-0 right-0 h-4 bg-transparent" />
+                    
                     {/* Header Banner */}
                     <div className="bg-brand-black p-6 flex items-center justify-between">
                       <div className="flex items-center gap-4">
